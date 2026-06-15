@@ -1,0 +1,70 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
+
+func main() {
+	// reads file and returns a byte slice which is stored in 'inputFile' 
+	inputFile, err := os.ReadFile("sample.txt")
+	if err != nil {
+		fmt.Println("File reading error", err)
+		return
+	}
+	
+	// creates an editable copy of sample.txt's contents
+	strToChange := string(inputFile)
+
+	// holds the changed string to be added to the file result.txt
+	result := ""
+	// string is converted to byte slice to be able to range through a loop
+	// this is to compare the keywords with words in the file
+	newStr := strings.Fields(strToChange)
+
+	//	using os.file.WriteString method to wrute to result.txt
+	file, err := os.Create("result.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close() 
+
+	
+	// Capitalise 
+	for i, word := range newStr {
+		if word == "(cap)" {
+			//	now that we have found the keyword "(cap)", we must look back to the words before it
+			//	we do that by looking at i-1, so the word before kw
+			//	BUT ALSO! remember we need to remove the key word so lets do a splice :))
+			newStr[i-1] = Capitalize(newStr[i-1])
+			newStr = append(newStr[:i], newStr[i+1:]...)
+			//	so assign the newStr to result.txt - done above
+			//	but first convert from type []string to type string
+			result = strings.Join(newStr, " ")
+		}
+	}
+
+	// Uppercase functionality
+	for i, word := range newStr {
+		if word == "(up)" {
+			newStr[i-1] = ToUpper(newStr[i-1])
+			newStr = append(newStr[:i], newStr[i+1:]...)
+			result = strings.Join(newStr, " ")
+		}
+	}
+
+	// Lowercase functionality
+	for i, word := range newStr {
+		if word == "(low)" {
+			newStr[i-1] = ToLower(newStr[i-1])
+			newStr = append(newStr[:i], newStr[i+1:]... )
+			result = strings.Join(newStr, " ")
+		}
+	}
+
+	// here i write to the file
+	file.WriteString(result)
+}
