@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
+
 
 func main() {
 	// reads file and returns a byte slice which is stored in 'inputFile' 
@@ -23,8 +25,10 @@ func main() {
 	// string is converted to byte slice to be able to range through a loop
 	// this is to compare the keywords with words in the file
 	newStr := strings.Fields(strToChange)
+	value := 0 // this variable is used in (cap), (up), (low) to calculate how many words to transform
+	temp := ""
 
-	//	using os.file.WriteString method to wrute to result.txt
+	//	using os.file.WriteString method to write to result.txt
 	file, err := os.Create("result.txt")
 	if err != nil {
 		log.Fatal(err)
@@ -53,8 +57,37 @@ func main() {
 			newStr[i-1] = ToUpper(newStr[i-1])
 			newStr = append(newStr[:i], newStr[i+1:]...)
 			result = strings.Join(newStr, " ")
+		}else if word == "(up," {
+			temp = newStr[i+1] // hopefully this is going to be one string and i can split it in the var below
+			a := strings.Split(temp, ")")
+			value, _ = strconv.Atoi(a)
+			
+			for count := 0; count <= value; count++ {
+				newStr[i-1+count] = ToUpper(newStr[i-1+count])
+				newStr = append(newStr[:i], newStr[i+2:]...)
+				result = strings.Join(newStr, " ")
+			}
 		}
 	}
+
+
+	// FAILED trial
+	// // Uppercase functionality
+	// for i, word := range newStr {
+	// 	if word == "(up)" {
+	// 		newStr[i-1] = ToUpper(newStr[i-1])
+	// 		newStr = append(newStr[:i], newStr[i+1:]...)
+	// 		result = strings.Join(newStr, " ")
+	// 	}else if word == "(up," {
+	// 		temp = newStr[i+1] // hopefully this is going to be one string and i can split it in the var below
+	// 		value = int(temp[0])
+	// 		for count := 0; count <= value; count++ {
+	// 			newStr[i-1+count] = ToUpper(newStr[i-1+count])
+	// 			newStr = append(newStr[:i], newStr[i+2:]...)
+	// 			result = strings.Join(newStr, " ")
+	// 		}
+	// 	}
+	// }
 
 	// Lowercase functionality
 	for i, word := range newStr {
