@@ -98,8 +98,6 @@ func main() {
 		}
 	}
 
-
-
 	// HEX
 	for i, word := range newStr {
 		if word == "(hex)" {
@@ -118,8 +116,6 @@ func main() {
 		}
 	}
 
-
-
 	// BIN
 	for i, word := range newStr {
 		if word == "(bin)" {
@@ -136,6 +132,9 @@ func main() {
 			result = strings.Join(newStr, " ")
 		}
 	}
+
+
+
 
 
 	// here i write to the file
