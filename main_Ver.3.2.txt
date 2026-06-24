@@ -1,3 +1,7 @@
+//RESOLVED UP, LOW, CAP 
+
+
+
 package main
 
 import (
@@ -97,31 +101,6 @@ func main() {
 			result = strings.Join(newStr, " ")
 		}
 	}
-
-
-
-
-	// HEX
-	for i, word := range newStr {
-		if word == "(hex)" {
-			//	now that we have found the keyword "(cap)", we must look back to the words before it
-			//	we do that by looking at i-1, so the word before kw
-			//	BUT ALSO! remember we need to remove the key word so lets do a splice :))
-			//so newStr[i-1] is the hex value - store it in temp
-			temp = newStr[i-1]	//its stored as a string
-			value, _ := strconv.ParseInt(temp, 16, 32)//not finished here------https://schadokar.dev/notes/convert-hexadecimal-to-decimal-and-decimal-to-hexadecimal-in-golang/
-			
-			newStr[i-1] = string(value)
-			newStr = append(newStr[:i], newStr[i+1:]...)
-			//	so assign the newStr to result.txt - done above
-			//	but first convert from type []string to type string
-			result = strings.Join(newStr, " ")
-		}
-	}
-
-
-
-
 
 	// here i write to the file
 	file.WriteString(result)
