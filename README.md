@@ -62,3 +62,7 @@ https://learn.01founders.co/git/stapader/Go-Reloaded.git
 
 https://stackoverflow.com/questions/37471740/how-to-copy-commits-from-one-git-repo-to-another
 -- how to copy commits from one repo to another
+
+
+https://github.com/01-edu/public/tree/master/subjects/go-reloaded/audit
+audit questions
