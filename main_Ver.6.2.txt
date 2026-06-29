@@ -1,3 +1,6 @@
+//PUNCTUATION - resolved kw '.' index issue & removed redundant use of variable temp | Goals for next iteration: to complete IF statements for other punctuation keywords"
+
+
 package main
 
 import (
