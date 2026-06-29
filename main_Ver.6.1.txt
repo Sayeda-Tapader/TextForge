@@ -1,3 +1,5 @@
+//PUNCTUATION - ONLY THE "." COMPLETED | WILL DO THE OTHER PUNCTATIONS NEXT
+
 package main
 
 import (
