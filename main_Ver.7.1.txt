@@ -1,3 +1,5 @@
+VOWELS - can differentiate between vowels and change a --> an if identified
+
 package main
 
 import (
