@@ -137,48 +137,64 @@ func main() {
 	for i, word := range newStr {// lets look through the whole list of punctuation
 		//	but now we should look at every letter in every word
 		//	so var 'i' is the position of which word i am in
-		//	while var 'j' is the position of the letter in that word
+		//	while var char is the letter in that word
 		for _, char := range word {
-			//	will use multiple IF statements for now
-			if char == '.' {
-				//	lets think of the example "he got away .She screamed"
-				//	so in this case the sentence is newStr
-				//	but we are looking at the string word
-				//	and word that will activate out case is ".She"
-				// 	now the FOR RANGE of word looks at each letter/char
-				//	i need to take the '.' off newStr[i] and attach it to the word before newStr[i-1]
-
-				//	so maybe temporarily store the previous word in temp and then concat the punctuation to it and then add that back
-				//temp = newStr[i-1] + "."
-
-				// if len(word) > 1 then good no need to append
+			//	issue with double punctuation, FIX LATER
+			switch char {
+			case '.':
 				newStr[i-1] = newStr[i-1] + "."
 				newStr[i] = strings.TrimLeft(word, ".")
 
-				//	i was thinking to check the length of word
-				//	but a more surefire way is that I look at the exact string as it is in its current state (after being changed)
 				if len(newStr[i]) == 0 {
-					newStr = append(newStr[:i], newStr[i+1:]...)// so it completely gets rid of position newStr[i]
+					newStr = append(newStr[:i], newStr[i+1:]...)
+				}
+
+			case ',':
+				newStr[i-1] = newStr[i-1] + ","
+				newStr[i] = strings.TrimLeft(word, ",")
+
+				if len(newStr[i]) == 0 {
+					newStr = append(newStr[:i], newStr[i+1:]...)
+				}
+
+			case '!':
+				newStr[i-1] = newStr[i-1] + "!"
+				newStr[i] = strings.TrimLeft(word, "!")
+
+				if len(newStr[i]) == 0 {
+					newStr = append(newStr[:i], newStr[i+1:]...)
+				}
+				
+			case '?':
+				newStr[i-1] = newStr[i-1] + "?"
+				newStr[i] = strings.TrimLeft(word, "?")
+
+				if len(newStr[i]) == 0 {
+					newStr = append(newStr[:i], newStr[i+1:]...)
+				}
+
+			case ':':
+				newStr[i-1] = newStr[i-1] + ":"
+				newStr[i] = strings.TrimLeft(word, ":")
+
+				if len(newStr[i]) == 0 {
+					newStr = append(newStr[:i], newStr[i+1:]...)
+				}
+
+			case ';':
+				newStr[i-1] = newStr[i-1] + ";"
+				newStr[i] = strings.TrimLeft(word, ";")
+
+				if len(newStr[i]) == 0 {
+					newStr = append(newStr[:i], newStr[i+1:]...)
 				}
 			}
-			// else if char == ',' {
-			// 	temp = newStr[i-1] + ","	//	removed a reduncancy
-			// 	newStr[i-1] = temp
-			// }else if char == '!' {
 
-			// }else if char == '?' {
 
-			// }else if char == ':' {
 
-			// }else if char == ';' {
-
-			// }
 			result = strings.Join(newStr, " ")
 		}
 	}
-
-
-
 
 	// here i write to the file
 	file.WriteString(result)
